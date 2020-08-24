@@ -10,7 +10,7 @@
 
 @File    :   cb_quize.py
 @Time    :   2020/08/23 16:24:33
-@Author  :   ZHOU 
+@Author  :   snc 
 """
 
 import random
