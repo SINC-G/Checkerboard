@@ -9,7 +9,7 @@
 @Author  :   snc 
 """
 
-from flask import Blueprint, request, g
+from flask import Blueprint, request, g, jsonify, render_template
 
 from flaskapp.db import get_db
 
@@ -17,19 +17,16 @@ login = Blueprint('login', __name__, url_prefix='/login')
 
 
 @login.route('', methods=['POST', 'GET'])
-def index():
-    get_db()
-
-    if request.method == "GET":
-        pass
-
-    if request.method == "POST":
-        # 用户名，密码
+def login():
+    if request.method == 'POST':
+        get_db()
         form = request.form
         res = g.db.execute(
             "select * from user where username=:username and password=:password", form)
         if res:
-            return "200"
-        else:
-            return "密码或用户名错误"
-        # 信息暂定
+            session['username'] = form.get('username')
+            session['password'] = form.get('password')
+            # 登录成功，则跳转到index页面
+            return jsonify({'code': 200})
+    # 登录失败，跳转到当前登录页面
+    return render_template('login.html')

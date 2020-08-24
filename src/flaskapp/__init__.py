@@ -12,7 +12,7 @@ flask应用
 import os
 import logging
 
-from flask import Flask, render_template, jsonify, g
+from flask import Flask, render_template, jsonify, g, session, redirect, url_for
 from flaskapp.db import init_db
 
 
@@ -33,9 +33,13 @@ def create_app(test_config=None):
     checkerboard.register_bp(app)  # 如果这个内容不大的换成文件模块
     app.register_blueprint(login)
 
-    @app.route('/')
+    @app.route('/index')
     def index():
-        return "404"
+        # 如果用户名和密码都存在，则跳转到index页面，登录成功
+        if 'username' in session and 'password' in session:
+            return render_template('index.html')
+        # 否则，跳转到login页面
+        return redirect(url_for('login'))
 
     logging.info('实例化成功！')
     return app
