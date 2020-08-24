@@ -13,6 +13,7 @@ import os
 import logging
 
 from flask import Flask, render_template, jsonify, g
+from flaskapp.db import init_db
 
 
 def create_app(test_config=None):
@@ -20,24 +21,17 @@ def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev'
+        SECRET_KEY='dev',
+        DATABASE='user.sqlite'
     )  # 默认配置
 
-    # 读取实例文件夹内的配置或测试配置
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_mapping(test_config)
-
-    # 创建实例文件夹
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    init_db(app)
 
     # 注册蓝图
     from . import checkerboard
-    checkerboard.register_bp(app)
+    from .login import login
+    checkerboard.register_bp(app)  # 如果这个内容不大的换成文件模块
+    app.register_blueprint(login)
 
     @app.route('/')
     def index():
