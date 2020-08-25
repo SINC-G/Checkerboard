@@ -36,11 +36,12 @@ class Checkerboard(object):
         # 额，元组不好翻啊，也不好进行索引啊，看看numpy好不好处理
         flip = 0
         for i in range(64):
-            if sequence(self.cb, i)[0] == 1:
+            if self.sequence(i)[0] == 1:
                 flip ^= i
 
         flip ^= self.key
-        a, b = (sequence(self.cb, flip)[1], sequence(self.cb, flip)[2])
+        a, b = (self.sequence(flip)[
+                1], self.sequence(flip)[2])
         self.cb[a][b] = int(not self.cb[a][b])
 
         return flip
@@ -57,7 +58,7 @@ class Checkerboard(object):
     def solve(self):
         key = 0
         for i in range(64):
-            if sequence(self.cb, i)[0] == 1:
+            if self.sequence(i)[0] == 1:
                 key ^= i
 
         return key
