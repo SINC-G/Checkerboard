@@ -9,11 +9,24 @@
 @Author  :   snc 
 """
 
-from flask import Blueprint
+from flask import Blueprint, request, session, jsonify
 
-cb = Blueprint('cb', __name__, url_prefix='/cb')
+from .models import Checkerboard
+
+cb = Blueprint('cb', __name__, url_prefix='/checkerboard')
+
+flag = {"flag": ""}
 
 
-@cb.route('/')
+@cb.route('/', method=["POST", "GET"])
 def index():
-    return '棋盘'
+    if request.method == "POST":
+        if 'username' in session and 'password' in session:
+            form = request.get_json(force=True)
+            if form['key'] == session['key']:
+                return jsonify(flag)
+    checkerboard = Checkerboard()
+    session['key'] = checkerboard.random_key()
+    # 翻转硬币后发送
+    checkerboard.flip_coin()
+    return jsonify(checkerboard.cb)

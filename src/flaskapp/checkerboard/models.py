@@ -16,52 +16,54 @@
 import random
 
 
-def random_checkerboard():
-    checkboard = list()
-    for i in range(8):
-        checkboard.append([random.randint(0, 1) for i in range(8)])
-    return checkboard
+class Checkerboard(object):
+
+    def __init__(self):
+        self.cb = self.random_checkerboard()
+
+    def random_checkerboard(self):
+        checkboard = list()
+        for i in range(8):
+            checkboard.append([random.randint(0, 1) for i in range(8)])
+        return checkboard
+
+    def random_key(self):
+        key = random.randint(0, 63)
+        self.key = key
+        return key
+
+    def flip_coin(self):
+        # 额，元组不好翻啊，也不好进行索引啊，看看numpy好不好处理
+        flip = 0
+        for i in range(64):
+            if sequence(self.cb, i)[0] == 1:
+                flip ^= i
+
+        flip ^= self.key
+        a, b = (sequence(self.cb, flip)[1], sequence(self.cb, flip)[2])
+        self.cb[a][b] = int(not self.cb[a][b])
+
+        return flip
+
+    def sequence(self, seq):
+        """ 0,63对硬币标号 """
+        if seq >= 8:
+            b = seq % 8
+            k = int((seq-b)/8)
+            return self.cb[k-1][b], k-1, b
+        else:
+            return self.cb[0][seq], 0, seq
+
+    def solve(self):
+        key = 0
+        for i in range(64):
+            if sequence(self.cb, i)[0] == 1:
+                key ^= i
+
+        return key
 
 
-def random_key():
-    key = random.randint(0, 63)
-    return key
-
-
-def flip_coin(checkboard, key):
-    # 额，元组不好翻啊，也不好进行索引啊，看看numpy好不好处理
-    flip = 0
-    for i in range(64):
-        if sequence(checkboard, i)[0] == 1:
-            flip ^= i
-
-    flip ^= key
-    a, b = (sequence(checkboard, flip)[1], sequence(checkboard, flip)[2])
-    checkboard[a][b] = int(not checkboard[a][b])
-
-    return flip
-
-
-def sequence(checkboard, seq):
-    """ 0,63对硬币标号 """
-    if seq >= 8:
-        b = seq % 8
-        k = int((seq-b)/8)
-        return checkboard[k-1][b], k-1, b
-    else:
-        return checkboard[0][seq], 0, seq
-
-
-def solve(checkboard):
-    key = 0
-    for i in range(64):
-        if sequence(checkboard, i)[0] == 1:
-            key ^= i
-
-    return key
-
-
-def main():
+""" def test():
     checkboard = random_checkerboard()
     key = random_key()
     flip = flip_coin(checkboard, key)
@@ -72,8 +74,4 @@ def main():
     else:
         print("验证失败！")
     print(key)
-    print(checkboard)
-
-
-if __name__ == "__main__":
-    main()
+    print(checkboard) """

@@ -37,6 +37,7 @@ def create_app(test_config=None):
     def index():
         # 如果用户名和密码都存在，则跳转到index页面，登录成功
         if 'username' in session and 'password' in session:
+            # 发送棋盘（前端来获取），类似
             return render_template('index.html')
         # 否则，跳转到login页面
         return redirect(url_for('login.main'))
