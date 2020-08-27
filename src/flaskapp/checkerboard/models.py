@@ -18,13 +18,11 @@ import random
 
 class Checkerboard(object):
 
-    def __init__(self):
-        self.cb = self.random_checkerboard()
-
     def random_checkerboard(self):
         checkboard = list()
         for i in range(8):
             checkboard.append([random.randint(0, 1) for i in range(8)])
+        self.checkboard = checkboard
         return checkboard
 
     def random_key(self):
@@ -61,6 +59,12 @@ class Checkerboard(object):
             if self.sequence(i)[0] == 1:
                 key ^= i
 
+        return key
+
+    def get(self):
+        self.random_checkerboard()
+        key = self.random_key()
+        self.flip_coin()
         return key
 
 

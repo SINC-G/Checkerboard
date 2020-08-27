@@ -18,7 +18,7 @@ cb = Blueprint('cb', __name__, url_prefix='/checkerboard')
 flag = {"flag": ""}
 
 
-@cb.route('/', methods=["POST", "GET"])
+@cb.route('', methods=["POST", "GET"])
 def index():
     if 'username' in session and 'password' in session:
         if request.method == "POST":
@@ -26,11 +26,10 @@ def index():
             if form['key'] == session['key']:
                 return jsonify(flag)
             else:
-                # 刷新
-                return jsonify("400")
+                checkerboard = Checkerboard()
+                session['key'] = checkerboard.get()
+                return jsonify(checkerboard.checkboard)
         else:
             checkerboard = Checkerboard()
-            session['key'] = checkerboard.random_key()
-            # 翻转硬币后发送
-            checkerboard.flip_coin()
-            return jsonify(checkerboard.cb)
+            session['key'] = checkerboard.get()
+            return jsonify(checkerboard.checkboard)
