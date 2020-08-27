@@ -1,3 +1,3 @@
 module.exports = {
-  outputDir: "../src/static",
+  outputDir: "../src/flaskapp/static",
 };

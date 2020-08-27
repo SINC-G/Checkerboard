@@ -22,7 +22,8 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE='user.sqlite'
+        DATABASE='user.sqlite',
+        template_folder="static"
     )  # 默认配置
 
     # init_db(app)
@@ -35,12 +36,12 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        # 如果用户名和密码都存在，则跳转到index页面，登录成功
         if 'username' in session and 'password' in session:
             # 发送棋盘（前端来获取），类似
-            return render_template('index.html')
-        # 否则，跳转到login页面
-        return redirect(url_for('login.main'))
+
+            # 这里应该返回200，未授权返回401
+            return jsonify({"status": 200}), 200
+        return jsonify({"code": "401", "info": "未授权"}), 401
 
     logging.info('实例化成功！')
     return app

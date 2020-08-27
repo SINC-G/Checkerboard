@@ -28,5 +28,3 @@ def main():
             session['password'] = form.get('password')
             # 登录成功，则跳转到index页面
             return jsonify({'code': 200})
-    # 登录失败，跳转到当前登录页面
-    return render_template('login.html')

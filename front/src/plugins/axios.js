@@ -2,6 +2,7 @@
 
 import Vue from "vue";
 import axios from "axios";
+import router from "../router";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -57,5 +58,30 @@ Plugin.install = function(Vue) {
 };
 
 Vue.use(Plugin);
+
+/* axios拦截器 */
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          /* 清楚flask的seesion，并跳转到登录界面 */
+          this.$cookie.delete("session");
+          router.replace({
+            path: "login",
+            quert: { redirect: router.currentRoute.fullPath },
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default Plugin;

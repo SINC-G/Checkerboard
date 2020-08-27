@@ -1,23 +1,33 @@
 <template>
-  <div>
-    <el-form :model="loginForm" :rules="loginRules">
-      <div>
-        <h3 class="title">Login</h3>
+  <div class="login-container">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
+      <div class="title-container">
+        <h3 class="title">Login Form</h3>
       </div>
 
       <el-form-item prop="username">
         <el-input
+          ref="username"
           v-model="loginForm.username"
           placeholder="Username"
           name="username"
           type="text"
           tabindex="1"
+          auto-complete="on"
         />
       </el-form-item>
 
       <el-form-item prop="password">
         <el-input
           :key="passwordType"
+          ref="password"
           v-model="loginForm.password"
           :type="passwordType"
           placeholder="Password"
@@ -34,6 +44,11 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >Login</el-button>
+
+      <div class="tips">
+        <span style="margin-right:20px;">username: admin</span>
+        <span>password: admin</span>
+      </div>
     </el-form>
   </div>
 </template>
@@ -66,6 +81,10 @@ export default {
         .then(function (response) {
           console.log(response.status);
           // 其实是应该走后台路由
+          let redirect = decodeURIComponent(this.$route.query.redirect || "/");
+          this.$router.push({
+            path: redirect,
+          });
         })
         .catch(function (error) {
           console.log(error.response);
@@ -75,8 +94,13 @@ export default {
 };
 </script>
 
-<style>
-</style>
-
 <style scoped>
+.login-form {
+  position: relative;
+  width: 520px;
+  max-width: 100%;
+  padding: 160px 35px 0;
+  margin: 0 auto;
+  overflow: hidden;
+}
 </style>
