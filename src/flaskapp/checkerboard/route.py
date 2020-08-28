@@ -9,13 +9,16 @@
 @Author  :   snc
 """
 
+import os
 from flask import Blueprint, request, session, jsonify
 
 from .models import Checkerboard
 
 cb = Blueprint('cb', __name__, url_prefix='/checkerboard')
 
-flag = {"flag": "This_is_flag"}
+with open("/flag.txt", "r") as f:
+    text = f.read()
+flag = {"flag": text}
 
 
 @cb.route('', methods=["POST", "GET"])

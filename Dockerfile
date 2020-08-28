@@ -3,7 +3,7 @@ FROM ubuntu
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
     apt-get clean && apt-get update
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y python3 \
+    apt-get install -y python3 ssh \
     nginx python3-pip && rm -rf /var/lib/apt/lists/*
 
 
@@ -18,6 +18,10 @@ WORKDIR /checkerboard
 COPY ./gunicorn.conf.py /checkerboard
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+RUN echo "root:@DLUctf2233" | chpasswd
+COPY ./sshd_config /etc/ssh/sshd_config
+COPY ./flag.txt /flag.txt
 
-ENTRYPOINT nginx -g "daemon on;" && gunicorn "flaskapp:create_app()" -c ./gunicorn.conf.py
+EXPOSE 80 22
+
+ENTRYPOINT nginx -g "daemon on;" && gunicorn "flaskapp:create_app()" -c ./gunicorn.conf.py && /usr/sbin/sshd -D
