@@ -21,7 +21,7 @@ def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY='1jL\xed\x03U\x8eZ\xa0qp\xe6\xe1\xb5\xf8w\x06l?]\x02gBH',
         DATABASE='user.sqlite',
         template_folder="static"
     )  # 默认配置
