@@ -69,7 +69,7 @@ axios.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           /* 清楚flask的seesion，并跳转到登录界面 */
-          this.$cookie.delete("session");
+          Vue.$cookies.remove("session");
           router.replace({
             path: "login",
             quert: { redirect: router.currentRoute.fullPath },

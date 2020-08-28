@@ -37,11 +37,14 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
         if 'username' in session and 'password' in session:
-            # 发送棋盘（前端来获取），类似
-
             # 这里应该返回200，未授权返回401
             return jsonify({"status": 200}), 200
         return jsonify({"code": "401", "info": "未授权"}), 401
+
+    @app.route('/ctf')
+    def ctf():
+        if 'username' in session and 'password' in session:
+            return jsonify({"Tip:a⊕(a⊕x)=x"})
 
     logging.info('实例化成功！')
     return app

@@ -9,7 +9,13 @@
       <el-menu-item index="1">主页</el-menu-item>
       <el-menu-item index="2" @click="getCB">保险箱</el-menu-item>
     </el-menu>
-    <div>管理员的保险箱，里面保存了最重要的东西</div>
+    <div>Admin的保险箱，里面保存了最重要的东西</div>
+    <div>
+      1. 保险箱是个前后端分离的项目，前端使用Vue，后端使用flask。
+      <br />2. 保险箱是基于一个棋盘谜题。黑白块是随机生成的，
+      <br />
+      <!-- 3.可以再浏览器控制台看到翻转的是哪一块  -->
+    </div>
     <Checkerboard :cb="cb" v-if="flag"></Checkerboard>
   </div>
 </template>
@@ -28,7 +34,8 @@ export default {
         .get("/checkerboard")
         .then((res) => {
           /* 返回的是硬币翻转（64个） */
-          this.cb = res.data;
+          this.cb = res.data.cb;
+          console.log("flip:" + res.data.flip);
           this.flag = true;
         })
         .catch((err) => {

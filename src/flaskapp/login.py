@@ -26,5 +26,5 @@ def main():
         if res.fetchall():
             session['username'] = form.get('username')
             session['password'] = form.get('password')
-            # 登录成功，则跳转到index页面
-            return jsonify({'code': 200})
+
+            return jsonify({'code': 200, "user": form.get('username')})

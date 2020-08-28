@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import './plugins/axios'
-import App from './App.vue'
-import './plugins/element.js'
-import router from './router'
-import cookie from './plugins/cookie'
+import Vue from "vue";
+import "./plugins/axios";
+import App from "./App.vue";
+import "./plugins/element.js";
+import router from "./router";
 
-Vue.config.productionTip = false
+// cookies
+Vue.use(require("vue-cookies"));
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
-  cookie,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");

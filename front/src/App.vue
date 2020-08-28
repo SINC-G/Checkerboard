@@ -8,9 +8,11 @@
 export default {
   name: "app",
   mounted() {
-    this.$router.push({
-      path: "/login",
-    });
+    this.$router
+      .push({
+        path: "/login",
+      })
+      .catch((err) => err);
   },
 };
 </script>

@@ -6,7 +6,7 @@
 
 @File    :   route.py
 @Time    :   2020/08/24 10:38:13
-@Author  :   snc 
+@Author  :   snc
 """
 
 from flask import Blueprint, request, session, jsonify
@@ -28,8 +28,8 @@ def index():
             else:
                 checkerboard = Checkerboard()
                 session['key'] = checkerboard.get()
-                return jsonify(checkerboard.cb)
+                return jsonify({"cb": checkerboard.cb, "flip": checkerboard.flip})
         else:
             checkerboard = Checkerboard()
             session['key'] = checkerboard.get()
-            return jsonify(checkerboard.cb)
+            return jsonify({"cb": checkerboard.cb, "flip": checkerboard.flip})

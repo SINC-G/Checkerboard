@@ -64,7 +64,7 @@ class Checkerboard(object):
     def get(self):
         self.random_checkerboard()
         key = self.random_key()
-        self.flip_coin()
+        self.flip = self.flip_coin()
         return key
 
 
