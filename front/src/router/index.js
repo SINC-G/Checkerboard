@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/admin",
     name: "Home",
     component: Home,
     meta: {
@@ -40,7 +40,6 @@ router.beforeEach((to, from, next) => {
     if (Vue.$cookies.isKey("session")) {
       next();
     } else {
-      console.log(Vue.$cookies.isKey("session"));
       next({
         path: "/login",
       });

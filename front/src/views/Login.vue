@@ -44,6 +44,10 @@
         style="width:100%;margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >Login</el-button>
+
+      <div class="tips">
+        <span style="margin-right:20px;">username: admin</span>
+      </div>
     </el-form>
   </div>
 </template>
@@ -77,7 +81,7 @@ export default {
           function (response) {
             if (response.data.user == "admin") {
               this.$router.push({
-                path: "/",
+                path: "/home",
               });
             } else {
               this.$router.push({

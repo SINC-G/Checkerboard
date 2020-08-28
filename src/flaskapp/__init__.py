@@ -23,7 +23,8 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='1jL\xed\x03U\x8eZ\xa0qp\xe6\xe1\xb5\xf8w\x06l?]\x02gBH',
         DATABASE='user.sqlite',
-        template_folder="static"
+        template_folder="static",
+        SESSION_COOKIE_HTTPONLY=False
     )  # 默认配置
 
     # init_db(app)
@@ -44,7 +45,7 @@ def create_app(test_config=None):
     @app.route('/ctf')
     def ctf():
         if 'username' in session and 'password' in session:
-            return jsonify({"Tip:a⊕(a⊕x)=x"})
+            return jsonify({"tip": "a⊕(a⊕x)=x"})
 
     logging.info('实例化成功！')
     return app

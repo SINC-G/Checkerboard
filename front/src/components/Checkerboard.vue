@@ -28,7 +28,7 @@ export default {
       this.axios
         .post("/checkerboard", { key: key })
         .then((res) => {
-          this.cb = res.data;
+          this.cb = res.data.cb;
         })
         .catch((err) => {
           console.error(err);

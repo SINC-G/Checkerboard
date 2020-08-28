@@ -15,7 +15,7 @@ from .models import Checkerboard
 
 cb = Blueprint('cb', __name__, url_prefix='/checkerboard')
 
-flag = {"flag": ""}
+flag = {"flag": "This_is_flag"}
 
 
 @cb.route('', methods=["POST", "GET"])
