@@ -12,6 +12,7 @@ COPY ./requirements.txt /checkerboard/flaskapp/
 RUN pip3 --no-cache-dir install -r /checkerboard/flaskapp/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 COPY ./src/flaskapp /checkerboard/flaskapp
+COPY ./user.sqlite /checkerboard
 WORKDIR /checkerboard
 
 COPY ./gunicorn.conf.py /checkerboard

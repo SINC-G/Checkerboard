@@ -26,9 +26,9 @@ export default {
     postKey(i, k) {
       let key = i * 8 + k;
       this.axios
-        .post("/chekerboard", { key: key })
+        .post("/checkerboard", { key: key })
         .then((res) => {
-          console.log(res);
+          this.cb = res.data;
         })
         .catch((err) => {
           console.error(err);

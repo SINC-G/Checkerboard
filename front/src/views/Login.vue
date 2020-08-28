@@ -78,14 +78,14 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password,
         })
-        .then(function (response) {
-          console.log(response.status);
-          // 其实是应该走后台路由
-          let redirect = decodeURIComponent(this.$route.query.redirect || "/");
-          this.$router.push({
-            path: redirect,
-          });
-        })
+        .then(
+          function (response) {
+            console.log(response.status);
+            this.$router.push({
+              path: "/",
+            });
+          }.bind(this)
+        )
         .catch(function (error) {
           console.log(error.response);
         });

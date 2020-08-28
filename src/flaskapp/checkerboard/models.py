@@ -22,7 +22,7 @@ class Checkerboard(object):
         checkboard = list()
         for i in range(8):
             checkboard.append([random.randint(0, 1) for i in range(8)])
-        self.checkboard = checkboard
+        self.cb = checkboard
         return checkboard
 
     def random_key(self):

@@ -28,8 +28,8 @@ def index():
             else:
                 checkerboard = Checkerboard()
                 session['key'] = checkerboard.get()
-                return jsonify(checkerboard.checkboard)
+                return jsonify(checkerboard.cb)
         else:
             checkerboard = Checkerboard()
             session['key'] = checkerboard.get()
-            return jsonify(checkerboard.checkboard)
+            return jsonify(checkerboard.cb)
