@@ -23,5 +23,4 @@ COPY ./sshd_config /etc/ssh/sshd_config
 COPY ./flag.txt /flag.txt
 
 EXPOSE 80 22
-
-ENTRYPOINT nginx -g "daemon on;" && gunicorn "flaskapp:create_app()" -c ./gunicorn.conf.py && /usr/sbin/sshd -D
+ENTRYPOINT nginx -g "daemon on;" && service ssh start && gunicorn "flaskapp:create_app()" -c ./gunicorn.conf.py

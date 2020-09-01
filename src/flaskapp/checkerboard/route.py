@@ -16,7 +16,9 @@ from .models import Checkerboard
 
 cb = Blueprint('cb', __name__, url_prefix='/checkerboard')
 
-with open("/flag.txt", "r") as f:
+flag_path = "/flag.txt"
+
+with open(flag_path, "r") as f:
     text = f.read()
 flag = {"flag": text}
 
@@ -35,4 +37,5 @@ def index():
         else:
             checkerboard = Checkerboard()
             session['key'] = checkerboard.get()
+            print(checkerboard.solve())
             return jsonify({"cb": checkerboard.cb, "flip": checkerboard.flip})

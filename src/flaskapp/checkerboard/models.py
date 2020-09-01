@@ -49,7 +49,7 @@ class Checkerboard(object):
         if seq >= 8:
             b = seq % 8
             k = int((seq-b)/8)
-            return self.cb[k-1][b], k-1, b
+            return self.cb[k][b], k, b
         else:
             return self.cb[0][seq], 0, seq
 

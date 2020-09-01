@@ -81,7 +81,7 @@ export default {
           function (response) {
             if (response.data.user == "admin") {
               this.$router.push({
-                path: "/home",
+                path: "/admin",
               });
             } else {
               this.$router.push({
